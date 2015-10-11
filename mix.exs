@@ -14,7 +14,7 @@ defmodule ElixTorrent.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {ElixTorrent, []}, applications: [:logger, :elixir_bencode]]
+    [mod: {ElixTorrent, []}, applications: [:logger, :elixir_bencode, :httpotion]]
   end
 
   # Dependencies can be Hex packages:
@@ -27,6 +27,10 @@ defmodule ElixTorrent.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:elixir_bencode, "~> 1.0.0"}]
+    [
+    {:elixir_bencode, "~> 1.0.0"},
+    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
+    {:httpotion, "~> 2.1.0"}
+    ]
   end
 end
