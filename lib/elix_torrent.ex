@@ -8,7 +8,17 @@ defmodule ElixTorrent do
 
     def read_torrent do
         meta_data = File.read @torrent_file
-        parsed_data = Bencode.decode elem(meta_data,1)
-        IO.inspect elem(parsed_data, 1)
+        parsed_data = elem(Bencode.decode(elem(meta_data,1)), 1)
+        IO.inspect parsed_data
+
+        hash = get_info_hash parsed_data
+        IO.inspect hash
     end
+
+    def get_info_hash(parsed_data) do
+        info_bencode = elem(Bencode.encode(parsed_data["info"]), 1)
+        info_sha = :crypto.hash :sha, info_bencode
+        URI.encode_query %{"info_hash" => info_sha}
+    end
+
 end
